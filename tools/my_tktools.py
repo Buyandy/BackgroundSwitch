@@ -18,21 +18,23 @@ def hide_console():
 
 
 def show_image(image_frame, file_path):
-    
-    if file_path:
-        # Очищаем предыдущее изображение
-        for widget in image_frame.winfo_children():
-            widget.destroy()
-        
-        # Загружаем новое изображение
-        image = Image.open(file_path)
-        image.thumbnail((600, 400))  # Масштабируем
-        photo = ImageTk.PhotoImage(image)
-        
-        # Создаем Label внутри frame
-        img_label = tk.Label(image_frame, image=photo)
-        img_label.pack(pady=10)
-        img_label.mainloop()
+    try:
+        if file_path:
+            # Очищаем предыдущее изображение
+            for widget in image_frame.winfo_children():
+                widget.destroy()
+            
+            # Загружаем новое изображение
+            image = Image.open(file_path)
+            image.thumbnail((600, 400))  # Масштабируем
+            photo = ImageTk.PhotoImage(image)
+            
+            # Создаем Label внутри frame
+            img_label = tk.Label(image_frame, image=photo)
+            img_label.pack(pady=10)
+            img_label.mainloop()
+    except Exception as e:
+         print(e)
         
         
     

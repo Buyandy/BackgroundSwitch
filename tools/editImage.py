@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageFilter
 import PIL
 from os import getcwd
 import tools.josik as josik
@@ -47,11 +47,22 @@ def editInGray() -> str:
     return save_path
 
 
+def editInFindEdges() -> str:
+    image = Image.open(current_image_path)
+    edit_image = image.filter(ImageFilter.FIND_EDGES)
+    save_path: str = saveImage(edit_image, "FINDEDGES")
+    return save_path
 
 
-
+def editInContour() -> str:
+    image = Image.open(current_image_path)
+    edit_image = image.filter(ImageFilter.CONTOUR)
+    save_path: str = saveImage(edit_image, "CONTOUR")
+    return save_path
 
 
 ALL_FILTERS: dict = {
     "Gray": editInGray,
+    "FindEdges": editInFindEdges,
+    "Contour": editInContour,
 }
