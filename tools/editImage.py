@@ -1,14 +1,22 @@
 from PIL import Image
 import PIL
 from os import getcwd
+import tools.josik as josik
 
 current_image_path: str = ""
 
 
-
+def _ready() -> None:
+    global current_image_path
+    data = josik.get_setting()
+    current_image_path = data["current_image_path"]
+    
 
 def currentImage(path):
     global current_image_path
+    data = josik.get_setting()
+    data["current_image_path"] = path
+    josik.save_setting(data)
     current_image_path = path
 
 # Сформирование имения под тип фильтра
@@ -19,10 +27,11 @@ def createName(path: str, name_filter: str) -> str:
 
 
 # Для сохранения изображении
-def saveImage(image, path: str, name_filter: str) -> str:
-    name = createName(path, name_filter)
+def saveImage(image, name_filter: str) -> str:
+    name = createName(current_image_path, name_filter)
     image.save("outputImages/"+name)
-    return "outputImages/"+name
+    currentImage(str(getcwd())+"/"+"outputImages/"+name)
+    return str(getcwd())+"/"+"outputImages/"+name
 
 
 
@@ -34,9 +43,13 @@ def saveImage(image, path: str, name_filter: str) -> str:
 def editInGray() -> str:
     image = Image.open(current_image_path)
     gray_image = image.convert("L")
-    save_path: str = str(getcwd())+"/"+saveImage(gray_image, current_image_path, "GRAY")
-    print(save_path)
+    save_path: str = saveImage(gray_image, "GRAY")
     return save_path
+
+
+
+
+
 
 
 ALL_FILTERS: dict = {

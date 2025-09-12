@@ -5,6 +5,14 @@ import tkinter as tk
 import ctypes
 from tools.editImage import currentImage
 
+import win32gui
+import win32.lib.win32con as win32con
+
+
+
+def hide_console():
+    the_program_to_hide = win32gui.GetForegroundWindow()
+    win32gui.ShowWindow(the_program_to_hide , win32con.SW_HIDE)
 
 
 
@@ -24,7 +32,7 @@ def show_image(image_frame, file_path):
         # Создаем Label внутри frame
         img_label = tk.Label(image_frame, image=photo)
         img_label.pack(pady=10)
-        1/0
+        img_label.mainloop()
         
         
     

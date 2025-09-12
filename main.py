@@ -3,16 +3,36 @@ from tkinter import ttk
 from tools.backswitch import randomChangeBack, changeBack
 import tools.my_tktools as mytools
 import tools.editImage as editImage
+from sys import argv
 
 # Новое:
 import threading
 import pystray
 
 
+def _ready(image_frame, root) -> None:
+    
+    changeBack(editImage.current_image_path)
+    
+
+    # ЭТА КОМАНДА ВСЕГДА ДОЛЖЕН БЫТЬ ВНИЗУ!!!!!!!!!!!!!!!!!!!
+    mytools.show_image(image_frame, editImage.current_image_path)
 
 
 
 def main():
+
+    # Скрывает консоль при передачи аргумента --no-console--
+    if len(argv) > 1:
+        print(argv)
+        if argv[1] == "--no-console--":
+            mytools.hide_console()
+
+
+
+    editImage._ready()# Старт файла editImage.py
+
+
     root = tk.Tk()
     root.title("Просто сменщик обоев")
     root.geometry("800x600")
@@ -32,7 +52,7 @@ def main():
     style = ttk.Style()
     style.theme_use("vista")
 
-
+    
 
     
 
@@ -136,7 +156,7 @@ def main():
 
 
 
-
+    _ready(image_frame, root) # Старт main.py
 
     root.mainloop()
 
