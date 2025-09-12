@@ -3,8 +3,9 @@ from PIL import Image, ImageDraw, ImageTk
 from tkinter import filedialog, messagebox
 import tkinter as tk
 import ctypes
+from tools.editImage import currentImage
 
-root: tk.Tk
+
 
 
 
@@ -23,7 +24,10 @@ def show_image(image_frame, file_path):
         # Создаем Label внутри frame
         img_label = tk.Label(image_frame, image=photo)
         img_label.pack(pady=10)
-        root.update_idletasks()
+        1/0
+        
+        
+    
 
      
 
@@ -40,8 +44,9 @@ def on_button_click(label, image_frame):
     используя результат функции randomChangeBack().
     """
     out_text: str = randomChangeBack()
-    show_image(image_frame, PATH_IMAGE+"/"+out_text)
     message_from_label(label, out_text)
+    currentImage(PATH_IMAGE+"/"+out_text)
+    show_image(image_frame, PATH_IMAGE+"/"+out_text)
 
 
 
@@ -56,7 +61,7 @@ def create_image():
 # выбор файла и изменения
 def choose_files(label, image_frame):
         file: str = filedialog.askopenfilename(title="Выберите фон", filetypes=[
-             ("Фото", "*.jpeg *.jpg *.png")])
+             ("Фото", "*.jpeg *.jpg *.png")], initialdir=PATH_IMAGE)
         if file:
             def check_type(): # функция для проверки типа файла на фото
                 file_type: str = file.split(".")[-1]
@@ -70,17 +75,25 @@ def choose_files(label, image_frame):
             if check_type():
                 file_name: str = file.split("/")[-1]
                 changeBack(file)
-                show_image(image_frame, file)
                 message_from_label(label, file_name)
+                currentImage(file)
+                show_image(image_frame, file)
             else:
                  messagebox.showerror("еррор?", "Не тот тип файла! \nДоступны только (jpeg, jpg, png)!")
 
 
 
 
-def minimize_all_windows():
+def minimize_all_windows(root):
     # Отправляем команду "Свернуть все"
     ctypes.windll.user32.keybd_event(0x5B, 0, 0, 0)  # Win
     ctypes.windll.user32.keybd_event(0x44, 0, 0, 0)  # D
     ctypes.windll.user32.keybd_event(0x44, 0, 2, 0)  # Release D
     ctypes.windll.user32.keybd_event(0x5B, 0, 2, 0)  # Release Win
+    root.iconify()
+    root.iconify()
+    root.iconify()
+    root.iconify()
+    root.deiconify()
+    root.deiconify()
+    root.deiconify()
