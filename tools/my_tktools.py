@@ -43,8 +43,8 @@ def show_image(image_frame, file_path):
 
 
 # изменение текста выводящие смену обои, принимаеться сам label и название обои
-def message_from_label(label, name):
-     label.config(text=f"Обои сменились на {name}")
+def message_from_label(label, text):
+     label.config(text=text)
 
 
 def on_button_click(label, image_frame):
@@ -54,7 +54,7 @@ def on_button_click(label, image_frame):
     используя результат функции randomChangeBack().
     """
     out_text: str = randomChangeBack()
-    message_from_label(label, out_text)
+    message_from_label(label, PATH_IMAGE+"/"+out_text)
     currentImage(PATH_IMAGE+"/"+out_text)
     show_image(image_frame, PATH_IMAGE+"/"+out_text)
 
@@ -85,7 +85,7 @@ def choose_files(label, image_frame):
             if check_type():
                 file_name: str = file.split("/")[-1]
                 changeBack(file)
-                message_from_label(label, file_name)
+                message_from_label(label, file)
                 currentImage(file)
                 show_image(image_frame, file)
             else:
