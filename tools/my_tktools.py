@@ -1,4 +1,4 @@
-from tools.backswitch import randomChangeBack, changeBack, PATH_IMAGE
+from tools import backswitch
 from PIL import Image, ImageDraw, ImageTk
 from tkinter import filedialog, messagebox
 import tkinter as tk
@@ -53,10 +53,10 @@ def on_button_click(label, image_frame):
     Изменяет текст метки (label), чтобы отразить изменение обоев, 
     используя результат функции randomChangeBack().
     """
-    out_text: str = randomChangeBack()
-    message_from_label(label, PATH_IMAGE+"/"+out_text)
-    currentImage(PATH_IMAGE+"/"+out_text)
-    show_image(image_frame, PATH_IMAGE+"/"+out_text)
+    out_text: str = backswitch.randomChangeBack()
+    message_from_label(label, backswitch.path_image+"/"+out_text)
+    currentImage(backswitch.path_image+"/"+out_text)
+    show_image(image_frame, backswitch.path_image+"/"+out_text)
 
 
 
@@ -71,7 +71,7 @@ def create_image():
 # выбор файла и изменения
 def choose_files(label, image_frame):
         file: str = filedialog.askopenfilename(title="Выберите фон", filetypes=[
-             ("Фото", "*.jpeg *.jpg *.png")], initialdir=PATH_IMAGE)
+             ("Фото", "*.jpeg *.jpg *.png")], initialdir=backswitch.path_image)
         if file:
             def check_type(): # функция для проверки типа файла на фото
                 file_type: str = file.split(".")[-1]
@@ -84,7 +84,7 @@ def choose_files(label, image_frame):
 
             if check_type():
                 file_name: str = file.split("/")[-1]
-                changeBack(file)
+                backswitch.changeBack(file)
                 message_from_label(label, file)
                 currentImage(file)
                 show_image(image_frame, file)
@@ -107,3 +107,12 @@ def minimize_all_windows(root):
     root.deiconify()
     root.deiconify()
     root.deiconify()
+
+
+
+
+
+# Выбор директории
+def choose_dir():
+    path = filedialog.askdirectory()
+    return path
