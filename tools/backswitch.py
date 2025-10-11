@@ -1,13 +1,17 @@
 import ctypes
-from os import listdir
+from os import listdir 
 from random import randint
 import tools.josik as josik
 
 path_image: str = ""
 
-def _ready() -> None:
+def _ready(message_box) -> None:
     global path_image
     path_image = josik.get_setting()["main_path"]
+    if path_image == "":
+        message_box("Директории нет!", "Не задана главная директория хранящий фото для фона! Пожалуйста укажите директорию")
+
+
 
 
 def changeBack(path: str):

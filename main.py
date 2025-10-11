@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, filedialog
+from tkinter import ttk, filedialog, messagebox
 from tools import backswitch
 import tools.my_tktools as mytools
 import tools.editImage as editImage
@@ -37,7 +37,7 @@ def _ready(image_frame, root) -> None: # Cтартовая команда
 
 
 def main():
-    backswitch._ready()# Старт файла backswitch.py
+    backswitch._ready(messagebox.showwarning)# Старт файла backswitch.py
     editImage._ready()# Старт файла editImage.py
     
 
