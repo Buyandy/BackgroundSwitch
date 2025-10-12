@@ -1,5 +1,4 @@
 import json
-from os import getcwd
 
 
 def get_setting() -> dict:
