@@ -7,6 +7,12 @@
 
 Это для тех кто не умеет собирать зависимости проекта через `requirements.txt` и запускать внутри виртуального пространства.
 
+## Скачивание самого репозитория
+```sh
+git clone https://github.com/Buyandy/BackgroundSwitch.git
+cd BackgroundSwitch
+```
+
 ## Создание виртуального пространства
 
 ```bash
